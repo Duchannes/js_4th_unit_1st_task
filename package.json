@@ -1,0 +1,34 @@
+{
+  "name": "js_4th_unit_1st_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./tests/webdriver_async.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "server": "start java -Dwebdriver.chrome.driver=./utils/chromedriver.exe -jar ./utils/selenium-server-standalone-3.141.59.jar",
+    "test": "node ./tests/scenario",
+    "cleanMemory": "taskkill /im chromedriver.exe /f"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Duchannes/js_4th_unit_1st_task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Duchannes/js_4th_unit_1st_task/issues"
+  },
+  "homepage": "https://github.com/Duchannes/js_4th_unit_1st_task#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "selenium-webdriver": "3.6.0"
+  }
+}
