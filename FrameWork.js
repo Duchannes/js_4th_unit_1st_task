@@ -17,23 +17,39 @@ module.exports = class FrameWork {
     console.log(`Language was succesfully switched`);
   }
 
-  async logIn () {
-    const loginButton = await this.driver.findElementByClass('button button_size_L button_action log-in not-handled');
-    const link = await this.driver.getAttribute(loginButton, 'href');
-    await this.driver.openPage(link);
-    const loginField = await this.driver.findElementByName('login');
-    await this.driver.sendKeys(loginField, this.data.login);
-    const passwordField = await this.driver.findElementByName('passwd');
-    await this.driver.sendKeys(passwordField, this.data.password);
-    const submitButton = await this.driver.findElementByLocator('[type=submit]');
-    await this.driver.clickOnElement(submitButton);
+  async findArtist () {
+    const searchField = await this.driver.findElementByLocator('[placeholder="Track, album, artist"]');
+    await this.driver.sendKeys(searchField, this.data.artist);
+    await this.driver.pressEnterAtElement(searchField);
+    const artistName = await this.driver.findElementByLocator(`.artist__name[title = ${this.data.artist}]`);
+    await this.driver.clickOnElement(artistName);
+    console.log(`Artist ${this.data.artist} was found`);
   }
 
-  async findArtist () {
-    const searchField = await this.driver.findElementByLocator('[placeholder]');
-    await this.driver.sendKeys(searchField, this.data.artist);
-    const searchButton = await this.driver.findElementByClass('d-button deco-button deco-button-flat d-button_type_flat d-button_w-icon d-button_w-icon-centered suggest-button');
-    await this.driver.clickOnElement(searchButton);
+  async findAlbum () {
+    const albumsTab = await this.driver.findElementByXpath(`//a[text()='Albums']`);
+    await this.driver.clickOnElement(albumsTab);
+    const albumIcon = await this.driver.findElementByXpath(`//a[text() = "${this.data.album}"]/../..`);
+    await this.driver.clickOnElement(albumIcon);
+    const albumLink = await this.driver.findElementByLocator(`.sidebar__section > div > a`);
+    await this.driver.clickOnElement(albumLink);
+    console.log(`Album ${this.data.album} was found`);
+  }
+
+  async findSong () {
+    const songLink = await this.driver.findElementByXpath(`//div[@class="d-track__name"][@title="${this.data.song}"]/..`);
+    await this.driver.clickOnElement(songLink);
+    console.log(`Song ${this.data.song} was found`);
+  }
+
+  async copyLink () {
+    const contextButton = await this.driver.findElementByLocator(`.sidebar-track .d-context-menu button`);
+    await this.driver.clickOnElement(contextButton);
+    const shareButton = await this.driver.findElementByLocator(`.sidebar-track .d-context-menu__item_share`);
+    await this.driver.clickOnElement(shareButton);
+    const copyLinkButton = await this.driver.findElementByLocator(`.sidebar-track .d-link_freezed.deco-link_freezed`);
+    await this.driver.clickOnElement(copyLinkButton);
+    console.log(`Link was copied`);
   }
 
   async close () {

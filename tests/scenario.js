@@ -5,8 +5,10 @@ const frameWork = new FrameWork(data);
 
 async function scenario () {
   await frameWork.switchLang();
-  await frameWork.logIn();
   await frameWork.findArtist();
+  await frameWork.findAlbum();
+  await frameWork.findSong();
+  await frameWork.copyLink();
   // await frameWork.close();
 }
 

@@ -9,7 +9,7 @@
   "scripts": {
     "server": "start java -Dwebdriver.chrome.driver=./utils/chromedriver.exe -jar ./utils/selenium-server-standalone-3.141.59.jar",
     "test": "node ./tests/scenario",
-    "cleanMemory": "taskkill /im chromedriver.exe /f"
+    "kill": "taskkill /im chromedriver.exe /f"
   },
   "repository": {
     "type": "git",
