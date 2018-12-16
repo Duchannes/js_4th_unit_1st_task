@@ -1,14 +1,15 @@
 const MyWebdriver = require('./MyWebdriver');
 
 module.exports = class FrameWork {
-  constructor (data) {
+  constructor (url, data) {
+    this.url = url;
     this.data = data;
     this.driver = new MyWebdriver();
     this.driver.createDriver();
   }
 
   async switchLang () {
-    await this.driver.openPage(this.data.url);
+    await this.driver.openPage(this.url);
     await this.driver.executeScript('window.scrollTo(0,document.body.scrollHeight);'); // need to scroll to the page bottom for element become clickable
     const langButton = await this.driver.findElementByLocator('.d-lang-switcher__current-lang-text');
     await this.driver.clickOnElement(langButton);
@@ -31,28 +32,17 @@ module.exports = class FrameWork {
     await this.driver.clickOnElement(albumsTab);
     const albumIcon = await this.driver.findElementByXpath(`//a[text() = "${this.data.album}"]/../..`);
     await this.driver.clickOnElement(albumIcon);
-    const albumLink = await this.driver.findElementByLocator(`.sidebar__section > div > a`);
-    await this.driver.clickOnElement(albumLink);
     console.log(`Album ${this.data.album} was found`);
   }
 
-  async findSong () {
-    const songLink = await this.driver.findElementByXpath(`//div[@class="d-track__name"][@title="${this.data.song}"]/..`);
-    await this.driver.clickOnElement(songLink);
-    console.log(`Song ${this.data.song} was found`);
-  }
-
-  async copyLink () {
-    const contextButton = await this.driver.findElementByLocator(`.sidebar-track .d-context-menu button`);
-    await this.driver.clickOnElement(contextButton);
-    const shareButton = await this.driver.findElementByLocator(`.sidebar-track .d-context-menu__item_share`);
-    await this.driver.clickOnElement(shareButton);
-    const copyLinkButton = await this.driver.findElementByLocator(`.sidebar-track .d-link_freezed.deco-link_freezed`);
-    await this.driver.clickOnElement(copyLinkButton);
-    console.log(`Link was copied`);
+  async findSongCount () {
+    const songsLinks = await this.driver.findAllElementsByLocator(`.d-track.typo-track.d-track_inline-meta`);
+    console.log(`${songsLinks.length} songs was found`);
+    return songsLinks.length;
   }
 
   async close () {
     await this.driver.closeDriver();
+    console.log(`Driver was closed.`);
   }
 };

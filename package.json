@@ -8,7 +8,7 @@
   },
   "scripts": {
     "server": "start java -Dwebdriver.chrome.driver=./utils/chromedriver.exe -jar ./utils/selenium-server-standalone-3.141.59.jar",
-    "test": "node ./tests/scenario",
+    "test": "mocha tests/checkSongsCount",
     "kill": "taskkill /im chromedriver.exe /f"
   },
   "repository": {
@@ -23,6 +23,8 @@
   "homepage": "https://github.com/Duchannes/js_4th_unit_1st_task#readme",
   "dependencies": {},
   "devDependencies": {
+    "mocha": "^5.2.0",
+    "chai": "^4.2.0",
     "eslint": "^5.10.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
