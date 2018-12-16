@@ -22,7 +22,7 @@ module.exports = class FrameWork {
     const searchField = await this.driver.findElementByLocator('[placeholder="Track, album, artist"]');
     await this.driver.sendKeys(searchField, this.data.artist);
     await this.driver.pressEnterAtElement(searchField);
-    const artistName = await this.driver.findElementByLocator(`.artist__name[title = ${this.data.artist}]`);
+    const artistName = await this.driver.findElementByLocator(`.artist__name[title = "${this.data.artist}"]`);
     await this.driver.clickOnElement(artistName);
     console.log(`Artist ${this.data.artist} was found`);
   }
