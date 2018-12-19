@@ -5,7 +5,7 @@ const expect = chai.expect;
 
 const scenario = require('../scenario');
 
-const data = require('./data/data.json');
+const data = require('./data.json');
 
 describe('#check Songs Count', function () {
   data.albums.forEach(album => {
